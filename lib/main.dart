@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:test_localization/blocs/localization_bloc.dart';
 
-import 'localization_delegates/localization_delegate_es.dart';
+import 'localization_delegates/cupertino_localization_delegate_es.dart';
+import 'localization_delegates/material_localization_delegate_es.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,10 +30,11 @@ class MyApp extends StatelessWidget {
             ),
             localizationsDelegates: [
               AppLocalizations.delegate,
-              LocalizationDelegateEs(),
-              DefaultMaterialLocalizations.delegate,
-              DefaultCupertinoLocalizations.delegate,
-              DefaultWidgetsLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              MaterialLocalizationEsDelegate(),
+              CupertinoLocalizationEsDelegate(),
             ],
             supportedLocales: const [
               Locale('en'),
@@ -74,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              AppLocalizations.of(context)!.helloWorld,
+              AppLocalizations.of(context)?.helloWorld ?? "",
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ],
